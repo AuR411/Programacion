@@ -23,8 +23,8 @@ public class LibroController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Libro> obtenerLibroPorId(@PathVariable Long id){
-        Optional<Libro> libro = libroService.obtenerPorId(id);
-        return libro.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+        Libro libro = libroService.obtenerPorId(id).orElseThrow(() -> new RuntimeException("El libro no existe"));
+        return  ResponseEntity.ok(libro);
     }
 
     @PostMapping

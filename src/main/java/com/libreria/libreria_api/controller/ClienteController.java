@@ -20,10 +20,10 @@ public class ClienteController {
         return  clienteService.listarTodos();
     }
 
-    @GetMapping("/id")
+    @GetMapping("/{id}")
     public ResponseEntity<Cliente> obtenerClientePorId(@PathVariable Long id){
-        Optional<Cliente> cliente = clienteService.obtenerPorId(id);
-        return cliente.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+        Cliente cliente = clienteService.obtenerPorId(id).orElseThrow(() -> new RuntimeException("El cliente no existe"));
+        return  ResponseEntity.ok(cliente);
     }
     @PostMapping
     public Cliente crearCliente(@RequestBody Cliente cliente){
