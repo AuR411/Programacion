@@ -15,21 +15,24 @@ import java.util.Optional;
 public class ClienteController {
     private final ClienteService clienteService;
 
+
+    //Lista los clientes
     @GetMapping
     public List<Cliente> listarClientes(){
         return  clienteService.listarTodos();
     }
-
+    //Obtiene un libro por ID
     @GetMapping("/{id}")
     public ResponseEntity<Cliente> obtenerClientePorId(@PathVariable Long id){
         Cliente cliente = clienteService.obtenerPorId(id).orElseThrow(() -> new RuntimeException("El cliente no existe"));
         return  ResponseEntity.ok(cliente);
     }
+    //Crea un nuevo cliente
     @PostMapping
     public Cliente crearCliente(@RequestBody Cliente cliente){
         return clienteService.crearCliente(cliente);
     }
-
+    //Elimina un cliente por ID
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarCliente(@PathVariable Long id){
         clienteService.eliminarCliente(id);
